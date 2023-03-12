@@ -4,11 +4,7 @@
 <div class="form-inline">
   <div class="form-group mb-2">
     <label class="mr-2">Filtro</label>
-    <input
-    type="text"
-    class="form-control mr-2"
-    placeholder="buscar"
-    [(ngModel)]="filtroLista">
+    <input type="text" class="form-control mr-2" placeholder="buscar" [(ngModel)]="filtroLista">
   </div>
 </div>
 
@@ -18,8 +14,8 @@
   <thead class="thead-dark">
     <tr>
       <th>
-        <button type="button" class="btn btn-outline-light btn-sm"
-        (click)="alterarImagem()">
+        <button type="button" class="btn btn-outline-light btn-sm" (click)="alterarImagem()">
+          <i class="{{!exibirImagem ? 'fa fa-eye' : 'fa fa-eye-slash'}}"></i>
           {{!exibirImagem ? 'Exibir' : 'Ocultar'}}
         </button>
       </th>
@@ -36,21 +32,24 @@
   <tbody *ngIf="eventos && eventos.length">
     <tr *ngFor="let evento of eventosFiltrados">
       <td>
-        <img [collapse] ="!exibirImagem"
-        [isAnimated]="true"
-        src="/assets/{{evento.imagemURL}}"
-        [style.width.px] = "larguraImagem"
-        [style.margin.px] = "margemImagem">
+        <img [collapse]="!exibirImagem" [isAnimated]="true" src="/assets/{{evento.imagemURL}}"
+          [style.width.px]="larguraImagem" [style.margin.px]="margemImagem">
       </td>
       <td>{{evento.id}}</td>
       <td>{{evento.tema}}</td>
       <td>{{evento.local}}</td>
-      <td>{{evento.dataEvento}}</td>
+      <td>{{evento.dataEvento | DateFormatPipe}}</td>
       <td>{{evento.qtdPessoas}}</td>
-      <td>{{evento.lotes}}</td>
+      <td>{{evento.lotes[0].nome}}</td>
       <td>
-        <button type="button" class="btn btn-primary btn-sm mr-2">Editar</button>
-        <button type="button" class="btn btn-danger btn-sm mr-2">Excluir</button>
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary btn-sm mr-2" tooltip="Editar">
+            <i class="fa fa-edit"></i>
+          </button>
+          <button type="button" class="btn btn-danger btn-sm mr-2" tooltip="Excluir" (click)="openModal(template)">
+            <i class="fa fa-trash"></i>
+          </button>
+        </div>
       </td>
     </tr>
   </tbody>
@@ -63,5 +62,10 @@
   </tfoot>
 </table>
 
- {{eventos | json}}
-
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Tem certeza que quer deletar esse Evento?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()" >Sim</button>
+    <button type="button" class="btn btn-primary" (click)="decline()" >Não</button>
+  </div>
+</ng-template>
