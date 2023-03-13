@@ -31,7 +31,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/ngx-spinner/animations/ball-scale-multiple.css"
             ],
             "scripts": []
           },
@@ -107,5 +109,7 @@
       }
     }
   },
-  "defaultProject": "ProEventos-App"
+  "cli": {
+    "analytics": "9b8d2120-ca50-44cd-bce0-21865389cec7"
+  }
 }
