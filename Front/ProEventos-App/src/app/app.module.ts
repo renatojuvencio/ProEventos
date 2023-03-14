@@ -1,5 +1,5 @@
 import { TituloComponent } from './shared/titulo/titulo.component';
-import { PerfilComponent } from './componentes/perfil/perfil.component';
+import { PerfilComponent } from './componentes/user/perfil/perfil.component';
 import { DashboardComponent } from './componentes/dashboard/dashboard.component';
 import { ContatosComponent } from './componentes/contatos/contatos.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
@@ -20,6 +20,11 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { BrowserModule } from '@angular/platform-browser';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { EventosDetalheComponent } from './componentes/eventos/eventos-detalhe/eventos-detalhe.component';
+import { EventosListagemComponent } from './componentes/eventos/eventos-listagem/eventos-listagem.component';
+import { UserComponent } from './componentes/user/user.component';
+import { LoginComponent } from './componentes/user/login/login.component';
+import { RegistrationComponent } from './componentes/user/registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +36,12 @@ import { NgxSpinnerModule } from "ngx-spinner";
     TituloComponent,
     ContatosComponent,
     DashboardComponent,
-    PerfilComponent
+    PerfilComponent,
+    EventosDetalheComponent,
+    EventosListagemComponent,
+    UserComponent,
+    LoginComponent,
+    RegistrationComponent
    ],
   imports: [
     BrowserModule,
