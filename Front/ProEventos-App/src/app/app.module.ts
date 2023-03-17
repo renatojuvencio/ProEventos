@@ -25,6 +25,11 @@ import { EventosListagemComponent } from './componentes/eventos/eventos-listagem
 import { UserComponent } from './componentes/user/user.component';
 import { LoginComponent } from './componentes/user/login/login.component';
 import { RegistrationComponent } from './componentes/user/registration/registration.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { ptBrLocale } from 'ngx-bootstrap/locale';
+
+defineLocale('pt-br', ptBrLocale);
 
 @NgModule({
   declarations: [
@@ -60,7 +65,8 @@ import { RegistrationComponent } from './componentes/user/registration/registrat
       preventDuplicates: true,
       progressBar: true
     }),
-    NgxSpinnerModule.forRoot()
+    NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' }),
+    BsDatepickerModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent],
