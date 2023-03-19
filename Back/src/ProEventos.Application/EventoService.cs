@@ -50,9 +50,9 @@ namespace ProEventos.Application
                 var evento = await _eventoPersist.GetEventoByIdAsync(eventoId, false);
                 if(evento == null) return null;
 
-                _mapper.Map(model, evento);
-
                 model.Id = eventoId;
+
+                _mapper.Map(model, evento);
 
                 _geralPersist.Update<Evento>(evento);
 

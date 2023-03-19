@@ -1,17 +1,17 @@
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { EventoService } from './../../../services/evento.service';
-import { Evento } from './../../../models/Evento';
+import { EventoService } from '../../../services/evento.service';
+import { Evento } from '../../../models/Evento';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Component, TemplateRef } from '@angular/core';
 
 @Component({
-  selector: 'app-eventos-listagem',
-  templateUrl: './eventos-listagem.component.html',
-  styleUrls: ['./eventos-listagem.component.scss']
+  selector: 'app-eventos-lista',
+  templateUrl: './eventos-lista.component.html',
+  styleUrls: ['./eventos-lista.component.scss']
 })
-export class EventosListagemComponent {
+export class EventosListaComponent {
   modalRef?: BsModalRef;
   public eventos : Evento[] = [];
   public eventosFiltrados : Evento[] = [];

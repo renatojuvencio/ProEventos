@@ -1,7 +1,7 @@
 import { RegistrationComponent } from './componentes/user/registration/registration.component';
 import { LoginComponent } from './componentes/user/login/login.component';
 import { UserComponent } from './componentes/user/user.component';
-import { EventosListagemComponent } from './componentes/eventos/eventos-listagem/eventos-listagem.component';
+import { EventosListaComponent } from './componentes/eventos/eventos-lista/eventos-lista.component';
 import { EventosDetalheComponent } from './componentes/eventos/eventos-detalhe/eventos-detalhe.component';
 import { EventosComponent } from './componentes/eventos/eventos.component';
 import { DashboardComponent } from './componentes/dashboard/dashboard.component';
@@ -24,7 +24,7 @@ const routes: Routes = [
   children: [
     { path: 'detalhe/:id', component: EventosDetalheComponent},
     { path: 'detalhe', component: EventosDetalheComponent},
-    { path: 'lista', component: EventosListagemComponent}
+    { path: 'lista', component: EventosListaComponent}
   ]
 },
   {path: 'dashboard', component: DashboardComponent},
