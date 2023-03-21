@@ -112,7 +112,10 @@
         <div formArrayName="lotes" *ngFor="let lote of lotes.controls; let i=index">
           <fieldset [formGroupName]="i" class="form-group">
             <legend class="d-flex justify-content-between capitalize">
-              <button class="p-2 btn btn-sm btn-outline-warning mb-1 d-flex"
+              {{
+                retornaTituloLote(lotes.get(i+'.nome').value)
+              }}
+              <button (click)="removerLote(template, i)" class="p-2 btn btn-sm btn-outline-warning mb-1 d-flex"
                 tooltip="Excluir Lote"
                 [adaptivePosition]="false"
                 [delay]="500"
@@ -141,6 +144,8 @@
             <div class="form-group col-md-4">
               <label>Preço</label>
               <input
+              currencyMask
+              [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }"
               [ngClass]="cssValidator(lotes.get(i+'.preco'))"
               type="text" currencyMask class="form-control"
               formControlName="preco"
@@ -149,16 +154,20 @@
             <div class="form-group col-md-4">
               <label>Data Início</label>
               <input
-              type="text" class="form-control"
-              formControlName="dataInicio"
-              placeholder="01/01/2019">
+              type="datetime" class="form-control"
+              bsDatepicker
+              value="{{lotes.get(i+'.dataInicio').value | date:'dd/MM/yyyy'}}"
+              placeholder="01/01/2023"
+              (bsValueChange)="mudarValorData($event, i, 'dataInicio')">
             </div>
             <div class="form-group col-md-4">
               <label>Data Fim</label>
               <input
-              type="text" class="form-control"
-              formControlName="dataFim"
-              placeholder="01/01/2019">
+              type="datetime" class="form-control"
+              bsDatepicker
+              value="{{lotes.get(i+'.dataFim').value | date:'dd/MM/yyyy'}}"
+              placeholder="01/01/2023"
+              (bsValueChange)="mudarValorData($event, i, 'dataFim')">
             </div>
           </div>
         </fieldset>
@@ -175,10 +184,18 @@
     <button class="btn btn-outline-secondary mr-auto border">
       Cancelar Alteração
     </button>
-    <button (click)="salvarLotes()" class="btn btn-success">
+    <button [disabled]="!form.controls['lotes'].valid" (click)="salvarLotes()" class="btn btn-success">
       Salvar Lotes
     </button>
   </div>
 </div>
 </div>
 <br>
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Tem certeza que quer deletar o Lote de código {{this.loteAtual.nome}}?</p>
+    <button type="button" class="btn btn-default" (click)="confirmDeleteLote()">Sim</button>
+    <button type="button" class="btn btn-primary" (click)="declineDeleteLote()">Não</button>
+  </div>
+</ng-template>
