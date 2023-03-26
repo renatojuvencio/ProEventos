@@ -1,3 +1,4 @@
+import { environment } from './../../../../environments/environment';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -109,5 +110,13 @@ export class EventosListaComponent {
 
   detalheEvento(id : number) : void{
     this.router.navigate([`eventos/detalhe/${id}`]);
+  }
+
+  mostraImagem(imagem : string) : string{
+    return imagem != ''
+    ?
+    `${environment.apiUrl}resources/images/${imagem}`
+    :
+    'assets/semImagem.jpg'
   }
 }
