@@ -38,6 +38,10 @@ namespace ProEventos.Application.Dtos
         Required(ErrorMessage = "O campo {0} é obrigatório.")]
         public string Email { get; set; }
 
+        public int UserId { get; set; }
+
+        public UserDto userDto { get; set; }
+
 
         public IEnumerable<LoteDto> Lotes { get; set; }
         public IEnumerable<RedeSocialDto> RedesSociais { get; set; }
