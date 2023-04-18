@@ -9,7 +9,7 @@
 
 	<div class="col-md-6">
 
-		<form [formGroup]="form" class="p-1">
+		<form [formGroup]="form" class="p-1" (ngSubmit)="register()">
       <div class="pb-2 d-block d-md-none">
         <h3 class="border-bottom">Cadastro de Usuário</h3>
       </div>
@@ -62,8 +62,8 @@
         <div class="form-group col-sm-6">
           <label for="">Senha:</label>
           <input class="form-control" type="password"
-          formControlName="senha"
-          [ngClass]="{'is-invalid': f.senha.errors && f.senha.touched}"
+          formControlName="password"
+          [ngClass]="{'is-invalid': f.password.errors && f.password.touched}"
           placeholder="Digite uma Senha" />
           <div class="invalid-feedback">
             senha é obrigatório.
@@ -72,13 +72,13 @@
         <div class="form-group col-sm-6">
           <label for="">Confirmar Senha:</label>
           <input class="form-control" type="password"
-          formControlName="confirmSenha"
-          [ngClass]="{'is-invalid': f.confirmSenha.errors && f.confirmSenha.touched}"
+          formControlName="confirmPassword"
+          [ngClass]="{'is-invalid': f.confirmPassword.errors && f.confirmPassword.touched}"
           placeholder="Confirme a Senha" />
-          <div *ngIf="f.confirmSenha.errors?.required" class="invalid-feedback">
+          <div *ngIf="f.confirmPassword.errors?.required" class="invalid-feedback">
            confirmar senha é obrigatório.
           </div>
-          <div *ngIf="f.confirmSenha.errors?.musMatching" class="invalid-feedback">
+          <div *ngIf="f.confirmPassword.errors?.musMatching" class="invalid-feedback">
             Repetir a senha é obrigatório.
            </div>
         </div>
@@ -91,7 +91,7 @@
       </div>
       <div class="form-row">
         <div class="form-group col-12">
-          <button class="btn btn-lg btn-success btn-block px-5">
+          <button [disabled]="form.invalid" type="submit"  class="btn btn-lg btn-success btn-block px-5">
             Registar
           </button>
         </div>
