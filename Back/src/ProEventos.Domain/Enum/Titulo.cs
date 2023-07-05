@@ -6,10 +6,9 @@ namespace ProEventos.Domain.Enum
         Tecnologo,
         Bacharel,
         Especialista,
-        PosGraudo,
+        PosGraduado,
         Mestrado,
         Doutorado,
-        PosDouturado
-
+        PosDoutorado
     }
 }

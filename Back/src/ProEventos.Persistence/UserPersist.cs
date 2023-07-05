@@ -1,13 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ProEventos.Application.Contratos;
-using ProEventos.Domain.Identity;
-using ProEventos.Persistence.Contextos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using ProEventos.Domain.Identity;
+using ProEventos.Persistence.Contextos;
+using ProEventos.Persistence.Contratos;
 
 namespace ProEventos.Persistence
 {
@@ -19,7 +17,8 @@ namespace ProEventos.Persistence
         {
             _context = context;
         }
-        public async Task<IEnumerable<User>> GetUSerAsync()
+
+        public async Task<IEnumerable<User>> GetUsersAsync()
         {
             return await _context.Users.ToListAsync();
         }
@@ -32,7 +31,7 @@ namespace ProEventos.Persistence
         public async Task<User> GetUserByUserNameAsync(string userName)
         {
             return await _context.Users
-                .SingleOrDefaultAsync(user => user.UserName == userName.ToLower());
+                                 .SingleOrDefaultAsync(user => user.UserName == userName.ToLower());
         }
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -11,9 +10,11 @@ using ProEventos.Application.Contratos;
 using ProEventos.Persistence;
 using ProEventos.Persistence.Contextos;
 using ProEventos.Persistence.Contratos;
+using AutoMapper;
+using System;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
-using IUserPersist = ProEventos.Application.Contratos.IUserPersist;
+using Microsoft.AspNetCore.Http;
 using System.Text.Json.Serialization;
 using ProEventos.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -21,6 +22,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Collections.Generic;
+using ProEventos.Api.Helpers;
 
 namespace ProEventos.API
 {
@@ -36,16 +38,9 @@ namespace ProEventos.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddDbContext<ProEventosContext>(
                 context => context.UseSqlite(Configuration.GetConnectionString("Default"))
             );
-            services.AddControllers()
-                    .AddJsonOptions
-                        (options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()))
-                    .AddNewtonsoftJson(options=> options.SerializerSettings.ReferenceLoopHandling =
-                        Newtonsoft.Json.ReferenceLoopHandling.Ignore
-                    );
 
             services.AddIdentityCore<User>(options =>
             {
@@ -55,38 +50,49 @@ namespace ProEventos.API
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 4;
             })
-                .AddRoles<Role>()
-                .AddRoleManager<RoleManager<Role>>()
-                .AddSignInManager<SignInManager<User>>()
-                .AddRoleValidator<RoleValidator<Role>>()
-                .AddEntityFrameworkStores<ProEventosContext>()
-                .AddDefaultTokenProviders();
+            .AddRoles<Role>()
+            .AddRoleManager<RoleManager<Role>>()
+            .AddSignInManager<SignInManager<User>>()
+            .AddRoleValidator<RoleValidator<Role>>()
+            .AddEntityFrameworkStores<ProEventosContext>()
+            .AddDefaultTokenProviders();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.TokenValidationParameters = new TokenValidationParameters
+                    .AddJwtBearer(options =>
                     {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"])),
-                        ValidateIssuer = false,
-                        ValidateAudience = false
-                    };
-                });
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"])),
+                            ValidateIssuer = false,
+                            ValidateAudience = false
+                        };
+                    });
 
+            services.AddControllers()
+                    .AddJsonOptions(options =>
+                        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())
+                    )
+                    .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling =
+                        Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                    );
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            
+
             services.AddScoped<IEventoService, EventoService>();
             services.AddScoped<ILoteService, LoteService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IPalestranteService, PalestranteService>();
+            services.AddScoped<IRedeSocialService, RedeSocialService>();
+            services.AddScoped<IUtil, Util>();
 
+            services.AddScoped<IGeralPersist, GeralPersist>();
             services.AddScoped<IEventoPersist, EventoPersist>();
             services.AddScoped<ILotePersist, LotePersist>();
             services.AddScoped<IUserPersist, UserPersist>();
-            services.AddScoped<IEventoPersist, EventoPersist>();
-            services.AddScoped<IGeralPersist, GeralPersist>();
+            services.AddScoped<IPalestrantePersist, PalestrantePersist>();
+            services.AddScoped<IRedeSocialPersist, RedeSocialPersist>();
 
             services.AddCors();
             services.AddSwaggerGen(options =>
@@ -95,13 +101,14 @@ namespace ProEventos.API
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = @"JWT Authorization header usando Bearer.
-                                    Entre com o 'Bearer' [espaço] então coloque seu token.
-                                    Exemplo 'Bearer 123456abcdef'",
+                                Entre com 'Bearer ' [espaÃ§o] entÃ£o coloque seu token.
+                                Exemplo: 'Bearer 12345abcdef'",
                     Name = "Authorization",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey,
                     Scheme = "Bearer"
                 });
+
                 options.AddSecurityRequirement(new OpenApiSecurityRequirement()
                 {
                     {
@@ -139,19 +146,19 @@ namespace ProEventos.API
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseCors(cors => cors.AllowAnyHeader()
-                                    .AllowAnyMethod()
-                                    .AllowAnyOrigin());
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseCors(x => x.AllowAnyHeader()
+                              .AllowAnyMethod()
+                              .AllowAnyOrigin());
 
             app.UseStaticFiles(new StaticFileOptions()
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Resources")),
-                RequestPath = new Microsoft.AspNetCore.Http.PathString("/Resources")
+                RequestPath = new PathString("/Resources")
+            });
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
             });
         }
     }

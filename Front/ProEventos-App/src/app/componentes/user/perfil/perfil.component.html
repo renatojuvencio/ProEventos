@@ -131,8 +131,8 @@
 				<div class="form-group col-sm">
 					<label>Senha</label>
 					<input type="password" class="form-control"
-          formControlName="senha"
-          [ngClass]="{'is-invalid' : f.senha.errors && f.senha.touched}"/>
+          formControlName="password"
+          [ngClass]="{'is-invalid' : f.password.errors && f.password.touched}"/>
           <div class="invalid-feedback">
             senha é obrigatório
           </div>
@@ -140,12 +140,12 @@
 				<div class="form-group col-sm">
 					<label>Confirmar Senha</label>
 					<input type="password" class="form-control"
-          formControlName="confirmSenha"
-          [ngClass]="{'is-invalid' : f.confirmSenha.errors && f.confirmSenha.touched}"/>
-          <div *ngIf="f.confirmSenha.errors?.required" class="invalid-feedback">
+          formControlName="confirmPassword"
+          [ngClass]="{'is-invalid' : f.confirmPassword.errors && f.confirmPassword.touched}"/>
+          <div *ngIf="f.confirmPassword.errors?.required" class="invalid-feedback">
             confirmar senha é obrigatório.
            </div>
-           <div *ngIf="f.confirmSenha.errors?.musMatching" class="invalid-feedback">
+           <div *ngIf="f.confirmPassword.errors?.musMatching" class="invalid-feedback">
              Repetir a senha é obrigatório.
             </div>
 				</div>

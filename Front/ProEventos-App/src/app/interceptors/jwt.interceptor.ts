@@ -6,7 +6,7 @@ import {
   HttpEvent,
   HttpInterceptor
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { User } from '@app/models/identity/User';
 
 @Injectable()

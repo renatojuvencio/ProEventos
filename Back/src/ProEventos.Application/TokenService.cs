@@ -1,11 +1,3 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Http.Features.Authentication;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using ProEventos.Application.Contratos;
-using ProEventos.Application.Dtos;
-using ProEventos.Domain.Identity;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -13,28 +5,32 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using ProEventos.Application.Contratos;
+using ProEventos.Application.Dtos;
+using ProEventos.Domain.Identity;
 
 namespace ProEventos.Application
 {
-    public  class TokenService : ITokenService
+    public class TokenService : ITokenService
     {
-        private readonly IConfiguration _configuration;
+        private readonly IConfiguration _config;
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
-
         public readonly SymmetricSecurityKey _key;
 
-        public TokenService(
-            IConfiguration configuration,
-            UserManager<User> userManager,
-            IMapper mapper)
+        public TokenService(IConfiguration config,
+                            UserManager<User> userManager,
+                            IMapper mapper)
         {
-            _configuration = configuration;
+            _config = config;
             _userManager = userManager;
             _mapper = mapper;
-            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["TokenKey"]));
+            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
         }
-
         public async Task<string> CreateToken(UserUpdateDto userUpdateDto)
         {
             var user = _mapper.Map<User>(userUpdateDto);
@@ -59,6 +55,7 @@ namespace ProEventos.Application
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
+
             var token = tokenHandler.CreateToken(tokenDescription);
 
             return tokenHandler.WriteToken(token);

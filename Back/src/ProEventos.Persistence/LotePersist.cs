@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -17,12 +15,13 @@ namespace ProEventos.Persistence
             _context = context;
         }
 
-        public async Task<Lote> GetLoteByIdsAsync(int eventoId, int loteId)
+        public async Task<Lote> GetLoteByIdsAsync(int eventoId, int id)
         {
             IQueryable<Lote> query = _context.Lotes;
+
             query = query.AsNoTracking()
-            .Where(lote => lote.EventoId == eventoId
-            && lote.Id == loteId);
+                         .Where(lote => lote.EventoId == eventoId
+                                     && lote.Id == id);
 
             return await query.FirstOrDefaultAsync();
         }
@@ -30,8 +29,9 @@ namespace ProEventos.Persistence
         public async Task<Lote[]> GetLotesByEventoIdAsync(int eventoId)
         {
             IQueryable<Lote> query = _context.Lotes;
+
             query = query.AsNoTracking()
-            .Where(lote => lote.EventoId == eventoId);
+                         .Where(lote => lote.EventoId == eventoId);
 
             return await query.ToArrayAsync();
         }
