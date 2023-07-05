@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AccountService } from './services/account.service';
 import { User } from './models/identity/User';
+import { AccountService } from './services/account.service';
 
 @Component({
   selector: 'app-root',
@@ -8,19 +8,23 @@ import { User } from './models/identity/User';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(public accountService: AccountService){}
 
-  ngOnit() : void{
+  constructor(public accountService: AccountService) {}
+
+  ngOnInit(): void {
     this.setCurrentUser();
   }
-  setCurrentUser() {
+
+  setCurrentUser(): void {
     let user: User;
-    if(localStorage.getItem('user')){
-      user = JSON.parse(localStorage.getItem('user')?? '{}')
-    }else{
-      user = null;
-    }
-    if(user)
+
+    if (localStorage.getItem('user'))
+      user = JSON.parse(localStorage.getItem('user') ?? '{}');
+    else
+      user = null
+
+    if (user)
       this.accountService.setCurrentUser(user);
   }
+
 }
