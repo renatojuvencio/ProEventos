@@ -87,7 +87,7 @@ defineLocale('pt-br', ptBrLocale);
     ModalModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 4000,
-      positionClass: 'toast-bottom-right',
+      positionClass: 'toast-bottom-left',
       preventDuplicates: true,
       progressBar: true,
     }),
