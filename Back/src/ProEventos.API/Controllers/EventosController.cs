@@ -84,7 +84,7 @@ namespace ProEventos.API.Controllers
                     _util.DeleteImage(evento.ImagemURL, _destino);
                     evento.ImagemURL = await _util.SaveImage(file, _destino);
                 }
-                var EventoRetorno = await _eventoService.UpdateEvento(User.GetUserId(), eventoId, evento);
+                var EventoRetorno = await _eventoService.UpdateEventos(User.GetUserId(), eventoId, evento);
 
                 return Ok(EventoRetorno);
             }
@@ -117,7 +117,7 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                var evento = await _eventoService.UpdateEvento(User.GetUserId(), id, model);
+                var evento = await _eventoService.UpdateEventos(User.GetUserId(), id, model);
                 if (evento == null) return NoContent();
 
                 return Ok(evento);
@@ -137,7 +137,7 @@ namespace ProEventos.API.Controllers
                 var evento = await _eventoService.GetEventoByIdAsync(User.GetUserId(), id, true);
                 if (evento == null) return NoContent();
 
-                if (await _eventoService.DeleteEvento(User.GetUserId(), id))
+                if (await _eventoService.DeleteEventos(User.GetUserId(), id))
                 {
                     _util.DeleteImage(evento.ImagemURL, _destino);
                     return Ok(new { message = "Deletado" });

@@ -9,8 +9,8 @@ using ProEventos.Persistence.Contextos;
 namespace ProEventos.Persistence.Migrations
 {
     [DbContext(typeof(ProEventosContext))]
-    [Migration("20230414005258_Adicionado-Identity")]
-    partial class AdicionadoIdentity
+    [Migration("20230707195621_Adicionando-Identity")]
+    partial class AdicionandoIdentity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -319,12 +319,12 @@ namespace ProEventos.Persistence.Migrations
                     b.Property<int>("EventoId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("PalestranteID")
+                    b.Property<int>("PalestranteId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("EventoId", "PalestranteID");
+                    b.HasKey("EventoId", "PalestranteId");
 
-                    b.HasIndex("PalestranteID");
+                    b.HasIndex("PalestranteId");
 
                     b.ToTable("PalestrantesEventos");
                 });
@@ -353,7 +353,7 @@ namespace ProEventos.Persistence.Migrations
 
                     b.HasIndex("PalestranteId");
 
-                    b.ToTable("RedeSociais");
+                    b.ToTable("RedesSociais");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -454,7 +454,7 @@ namespace ProEventos.Persistence.Migrations
 
                     b.HasOne("ProEventos.Domain.Palestrante", "Palestrante")
                         .WithMany("PalestrantesEventos")
-                        .HasForeignKey("PalestranteID")
+                        .HasForeignKey("PalestranteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

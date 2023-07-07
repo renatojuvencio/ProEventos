@@ -128,22 +128,7 @@ namespace ProEventos.Application
         }
     }
 
-        public Task<EventoDto[]> GetAllEventosAsync(int userId, bool includePalestrantes = false)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<EventoDto[]> GetAllEventosByTemaAsync(int userId, string tema, bool includePalestrantes = false)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<EventoDto> UpdateEvento(int userId, int eventoId, EventoDto model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> DeleteEvento(int userId, int eventoId)
         {
             throw new NotImplementedException();
         }
