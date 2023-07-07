@@ -17,7 +17,7 @@ import { EventoService } from '@app/services/evento.service';
 import { Evento } from '@app/models/Evento';
 import { Lote } from '@app/models/Lote';
 import { DatePipe } from '@angular/common';
-import { environment } from '@environments/environment';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-evento-detalhe',

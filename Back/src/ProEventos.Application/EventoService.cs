@@ -45,7 +45,7 @@ namespace ProEventos.Application
         }
     }
 
-    public async Task<EventoDto> UpdateEvento(int userId, int eventoId, EventoDto model)
+    public async Task<EventoDto> UpdateEventos(int userId, int eventoId, EventoDto model)
     {
         try
         {
@@ -73,7 +73,7 @@ namespace ProEventos.Application
         }
     }
 
-    public async Task<bool> DeleteEvento(int userId, int eventoId)
+    public async Task<bool> DeleteEventos(int userId, int eventoId)
     {
         try
         {
@@ -127,5 +127,25 @@ namespace ProEventos.Application
             throw new Exception(ex.Message);
         }
     }
-}
+
+        public Task<EventoDto[]> GetAllEventosAsync(int userId, bool includePalestrantes = false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<EventoDto[]> GetAllEventosByTemaAsync(int userId, string tema, bool includePalestrantes = false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<EventoDto> UpdateEvento(int userId, int eventoId, EventoDto model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> DeleteEvento(int userId, int eventoId)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

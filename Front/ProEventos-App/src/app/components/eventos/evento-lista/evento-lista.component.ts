@@ -5,10 +5,10 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Evento } from '@app/models/Evento';
 import { EventoService } from '@app/services/evento.service';
-import { environment } from '@environments/environment';
 import { PaginatedResult, Pagination } from '@app/models/Pagination';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-evento-lista',

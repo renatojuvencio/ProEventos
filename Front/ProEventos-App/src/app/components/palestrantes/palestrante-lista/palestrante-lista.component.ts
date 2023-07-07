@@ -8,7 +8,7 @@ import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { Palestrante } from '@app/models/Palestrante';
 import { PaginatedResult, Pagination } from '@app/models/Pagination';
-import { environment } from '@environments/environment';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-palestrante-lista',

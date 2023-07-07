@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, ReplaySubject } from 'rxjs';
-import { environment } from '@environments/environment';
 import { User } from '@app/models/identity/User';
 import { map, take } from 'rxjs/operators';
 import { UserUpdate } from '../models/identity/UserUpdate';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class AccountService {

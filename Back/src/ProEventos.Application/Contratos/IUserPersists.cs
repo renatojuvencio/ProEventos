@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProEventos.Persistence.Contratos
 {
-    public interface IUserPersist : IGeralPersist
+    public interface IUserPersists : IGeralPersist
     {
         Task<IEnumerable<User>> GetUSerAsync();
         Task<User> GetUserByIdAsync(int id);

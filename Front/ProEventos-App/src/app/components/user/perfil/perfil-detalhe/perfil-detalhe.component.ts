@@ -55,7 +55,7 @@ export class PerfilDetalheComponent implements OnInit {
           this.router.navigate(['/dashboard']);
         }
       )
-      .add(this.spinner.hide());
+      //.add(this.spinner.hide());
   }
 
   private validation(): void {

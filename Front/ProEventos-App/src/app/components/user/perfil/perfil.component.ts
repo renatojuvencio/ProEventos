@@ -3,7 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { UserUpdate } from '@app/models/identity/UserUpdate';
 import { AccountService } from '@app/services/account.service';
-import { environment } from '@environments/environment';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-perfil',
