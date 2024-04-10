@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProEventos.Persistence.Contratos
+namespace ProEventos.Application.Contratos
 {
     public interface IUserPersists : IGeralPersist
     {
